@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_34B6438F-F3A5-45A4-AC66-E148E52F7162" id="_8E136D05-7E19-40B0-BED1-1420347D3C52" name="DMN_B99E21C7-99CE-46C7-9AD4-0B11F93AA4BE" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_34B6438F-F3A5-45A4-AC66-E148E52F7162" id="_8E136D05-7E19-40B0-BED1-1420347D3C52" name="DMN_B99E21C7-99CE-46C7-9AD4-0B11F93AA4BE">
   <itemDefinition id="_39763BA0-63E5-4F14-99FE-30BF1AA8FB58" name="Trip Details" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
-    <itemComponent id="_10005B1D-5F46-499E-B8F6-D59F825A110A" name="Travel Duration" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
-      <typeRef>days and time duration</typeRef>
+    <itemComponent id="_72594138-4838-48A3-9D6C-AB2C00B9712D" name="End Date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>date</typeRef>
     </itemComponent>
-    <itemComponent id="_83C31575-E761-448F-9138-022D45DC926C" name="Travel Date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_A97E31AE-4A11-4E6C-8135-E37CFA036818" name="Destination" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_85F22436-14EB-46C9-9D8D-70EFC146F0A9" name="Start Date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
       <typeRef>date</typeRef>
     </itemComponent>
   </itemDefinition>
@@ -72,6 +75,48 @@
     <informationRequirement id="_B2ECAF7B-6A1B-4E1B-B62F-1662B4DE7E6F">
       <requiredInput href="#_A20643D3-D092-4B83-9A09-F67A3CA4DEC6" />
     </informationRequirement>
+    <decisionTable id="_97CC19A8-3EC0-4E4F-A465-AFC0D53F31E5" typeRef="number" hitPolicy="UNIQUE" label="Base Premium">
+      <input id="_388ADFE9-4B4F-41F0-AD4D-082F4364834E">
+        <inputExpression id="_33ED7A47-EEEC-4AFA-9F70-DD2B3C125F01" typeRef="number">
+          <text>Traveler.Age</text>
+        </inputExpression>
+      </input>
+      <output id="_F754E8BF-D793-4A94-913F-D16FD2D877BE" name="Output-1" />
+      <annotation name="Annotations" />
+      <rule id="_87B35D0C-CB98-44A4-A62F-80E69FAE55E7">
+        <inputEntry id="_B9D7E55E-594A-44D1-98AC-E4DA32D35153">
+          <text>&lt;25</text>
+        </inputEntry>
+        <outputEntry id="_54DAC05C-12A2-4F41-BFB3-1B29C9FB1B91">
+          <text>50</text>
+        </outputEntry>
+        <annotationEntry>
+          <text>// Your annotations here</text>
+        </annotationEntry>
+      </rule>
+      <rule id="_1D11810B-60F4-4D0A-AAA9-233FEEDCA5AB">
+        <inputEntry id="_86CDCF0D-9A3C-4BAB-87B5-72FF1E2EF0D3">
+          <text>[25..65]</text>
+        </inputEntry>
+        <outputEntry id="_A909884B-9EF7-4307-BD03-1C6F95B641D1">
+          <text>75</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+      <rule id="_D0AB2B61-512C-4510-B36A-BE230DB1ADCD">
+        <inputEntry id="_A08171BC-0DB2-418C-9D44-A50BD07E39FD">
+          <text>&gt;65</text>
+        </inputEntry>
+        <outputEntry id="_8B38309C-326E-44DB-827D-EE4A93EB0F31">
+          <text>100</text>
+        </outputEntry>
+        <annotationEntry>
+          <text></text>
+        </annotationEntry>
+      </rule>
+    </decisionTable>
   </decision>
   <decision name="Destination Risk Factor" id="_14841F9A-5644-4197-88ED-C7D480876E67">
     <variable name="Destination Risk Factor" id="_E4EDCEA4-1A2B-4B14-AE65-31CE72AA92AC" typeRef="number" />
@@ -83,7 +128,12 @@
     <dmndi:DMNDiagram id="_90AC98E1-93D3-428B-878A-6D96B480F45F" name="Default DRD" useAlternativeInputDataShape="false">
       <di:extension>
         <kie:ComponentsWidthsExtension>
-          <kie:ComponentWidths />
+          <kie:ComponentWidths dmnElementRef="_97CC19A8-3EC0-4E4F-A465-AFC0D53F31E5">
+            <kie:width>60</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>118</kie:width>
+            <kie:width>240</kie:width>
+          </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
       </di:extension>
       <dmndi:DMNShape id="_8C004E09-80F3-49EE-A38A-AFB5C61EDE79" dmnElementRef="_A20643D3-D092-4B83-9A09-F67A3CA4DEC6" isCollapsed="false" isListedInputData="false">
