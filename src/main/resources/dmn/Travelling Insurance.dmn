@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/" expressionLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/" namespace="https://kie.org/dmn/_34B6438F-F3A5-45A4-AC66-E148E52F7162" id="_8E136D05-7E19-40B0-BED1-1420347D3C52" name="DMN_B99E21C7-99CE-46C7-9AD4-0B11F93AA4BE" xmlns:dmndi="https://www.omg.org/spec/DMN/20230324/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:kie="https://kie.org/dmn/extensions/1.0">
+  <itemDefinition id="_39763BA0-63E5-4F14-99FE-30BF1AA8FB58" name="Trip Details" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_10005B1D-5F46-499E-B8F6-D59F825A110A" name="Travel Duration" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>days and time duration</typeRef>
+    </itemComponent>
+    <itemComponent id="_83C31575-E761-448F-9138-022D45DC926C" name="Travel Date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>date</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <itemDefinition id="_9E6ED9DF-3280-4F5F-B905-B982F83CE4F7" name="Claim" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <itemComponent id="_B35BDDAB-D90A-41D0-8199-CEEDA2C7B1F5" name="status" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+      <typeConstraint id="_0E43EAA4-FCCD-4779-82A4-F19DDCCDB833" kie:constraintType="enumeration">
+        <text>&quot;APPROVED&quot;, &quot;REJECTED&quot;, &quot;IN_PROGRESS&quot;</text>
+      </typeConstraint>
+    </itemComponent>
+    <itemComponent id="_DE08B74D-A1A6-40F4-9C88-20B66AE7CAF6" name="Total claim amount" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_363711C6-3CE1-446D-866A-918AF0E6D7C7" name="claim date" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>date</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <itemDefinition id="_34187166-5987-4BBC-9BA7-7FD9C4CA2DF0" name="Traveler" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+    <description>Traveler Type for insurance app</description>
+    <itemComponent id="_4F0B1D4F-36BF-43E2-BAE0-6154170DC703" name="Age" isCollection="false" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>number</typeRef>
+    </itemComponent>
+    <itemComponent id="_0F83106A-4042-4F4A-BB68-1FCE769269D7" name="Medical History" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>string</typeRef>
+    </itemComponent>
+    <itemComponent id="_D7311B11-8E84-46A6-96E1-4529F27EA9BB" name="Claim History" isCollection="true" typeLanguage="https://www.omg.org/spec/DMN/20230324/FEEL/">
+      <typeRef>Claim</typeRef>
+    </itemComponent>
+  </itemDefinition>
+  <inputData name="Traveler" id="_A20643D3-D092-4B83-9A09-F67A3CA4DEC6">
+    <variable name="Traveler" id="_09A091A9-6637-4900-AC47-8B9A15210198" typeRef="Traveler" />
+  </inputData>
+  <decision name="Final Premium" id="_F57EDAFB-F2DB-4768-81C0-E56ABDE4FA22">
+    <variable name="Final Premium" id="_7BDDFAAE-70BD-483B-81BB-95A00AB7F9E7" />
+    <informationRequirement id="_06B6778C-8A87-4807-9D32-5349BCDA37D9">
+      <requiredDecision href="#_1027B7A3-D147-45A2-A4E6-B9682AD8ADB4" />
+    </informationRequirement>
+    <informationRequirement id="_BDDF7BA3-D97B-45C8-828D-749C3B4EC419">
+      <requiredDecision href="#_E468322D-5069-47A2-92F5-3C22B1FCED01" />
+    </informationRequirement>
+    <informationRequirement id="_4FE51FDE-D73C-402B-AF14-4C80C562945A">
+      <requiredDecision href="#_2AB5F542-BB7D-4A96-BF93-2D7F6605C1AF" />
+    </informationRequirement>
+    <informationRequirement id="_942866CE-984B-4471-B333-11B9C6CF9044">
+      <requiredDecision href="#_14841F9A-5644-4197-88ED-C7D480876E67" />
+    </informationRequirement>
+  </decision>
+  <inputData name="Trip Details" id="_D53587BE-E1D3-41BD-AA45-A9BD89543000">
+    <variable name="Trip Details" id="_0CFAEAD7-4987-4AB1-9C10-4405676442A6" typeRef="Trip Details" />
+  </inputData>
+  <decision name="Medical Assessment" id="_1027B7A3-D147-45A2-A4E6-B9682AD8ADB4">
+    <variable name="Medical Assessment" id="_35ACE2DB-9237-4DDF-A861-740F2FA69B23" typeRef="number" />
+    <informationRequirement id="_DFD4F943-7A52-4FC0-9E42-B9CBBF14B053">
+      <requiredInput href="#_A20643D3-D092-4B83-9A09-F67A3CA4DEC6" />
+    </informationRequirement>
+  </decision>
+  <decision name="Claim Assesment" id="_E468322D-5069-47A2-92F5-3C22B1FCED01">
+    <variable name="Claim Assesment" id="_8BFD678D-C960-42CE-8488-C0D093F7A54D" typeRef="number" />
+    <informationRequirement id="_E7472F2F-C4A7-4B75-A036-6AA90E738362">
+      <requiredInput href="#_A20643D3-D092-4B83-9A09-F67A3CA4DEC6" />
+    </informationRequirement>
+  </decision>
+  <decision name="Base Premium" id="_2AB5F542-BB7D-4A96-BF93-2D7F6605C1AF">
+    <variable name="Base Premium" id="_4E8FF84A-1E01-40B0-A6E8-6247EA18A024" typeRef="number" />
+    <informationRequirement id="_B2ECAF7B-6A1B-4E1B-B62F-1662B4DE7E6F">
+      <requiredInput href="#_A20643D3-D092-4B83-9A09-F67A3CA4DEC6" />
+    </informationRequirement>
+  </decision>
+  <decision name="Destination Risk Factor" id="_14841F9A-5644-4197-88ED-C7D480876E67">
+    <variable name="Destination Risk Factor" id="_E4EDCEA4-1A2B-4B14-AE65-31CE72AA92AC" typeRef="number" />
+    <informationRequirement id="_9CF8B8F6-7C4B-45FD-A665-DEF13EE8B174">
+      <requiredInput href="#_D53587BE-E1D3-41BD-AA45-A9BD89543000" />
+    </informationRequirement>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_90AC98E1-93D3-428B-878A-6D96B480F45F" name="Default DRD" useAlternativeInputDataShape="false">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths />
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="_8C004E09-80F3-49EE-A38A-AFB5C61EDE79" dmnElementRef="_A20643D3-D092-4B83-9A09-F67A3CA4DEC6" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="112" y="472" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_C3C1CB8A-8CE6-4D0F-BB20-190182DE804D" dmnElementRef="_F57EDAFB-F2DB-4768-81C0-E56ABDE4FA22" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="332" y="112" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_9E466DA9-8EB9-4732-B471-EF4E7A4328AB" dmnElementRef="_D53587BE-E1D3-41BD-AA45-A9BD89543000" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="772" y="472" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_45ECEA43-C4F3-44CC-AA88-697E8A3103EF" dmnElementRef="_1027B7A3-D147-45A2-A4E6-B9682AD8ADB4" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="552" y="292" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_7B5BA905-E484-4F8B-9421-9AD2BBD672F7" dmnElementRef="_E468322D-5069-47A2-92F5-3C22B1FCED01" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="112" y="292" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_E614C7E0-CA2B-42FF-8235-058F07AC147F" dmnElementRef="_2AB5F542-BB7D-4A96-BF93-2D7F6605C1AF" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="332" y="292" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="_548A2E37-C647-4AED-8FD9-2F5BD08AE858" dmnElementRef="_14841F9A-5644-4197-88ED-C7D480876E67" isCollapsed="false" isListedInputData="false">
+        <dc:Bounds x="772" y="292" width="160" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="_3743E4EF-6462-45FC-846C-12950AD89F7E" dmnElementRef="_06B6778C-8A87-4807-9D32-5349BCDA37D9" sourceElement="_45ECEA43-C4F3-44CC-AA88-697E8A3103EF" targetElement="_C3C1CB8A-8CE6-4D0F-BB20-190182DE804D">
+        <di:waypoint x="632" y="292" />
+        <di:waypoint x="412" y="192" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_70B023FC-747E-42A9-98E5-39C2F325D50E" dmnElementRef="_BDDF7BA3-D97B-45C8-828D-749C3B4EC419" sourceElement="_7B5BA905-E484-4F8B-9421-9AD2BBD672F7" targetElement="_C3C1CB8A-8CE6-4D0F-BB20-190182DE804D">
+        <di:waypoint x="192" y="292" />
+        <di:waypoint x="412" y="192" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_7AAD8A5C-7480-4DEB-98A8-9DF2481E3FD7" dmnElementRef="_4FE51FDE-D73C-402B-AF14-4C80C562945A" sourceElement="_E614C7E0-CA2B-42FF-8235-058F07AC147F" targetElement="_C3C1CB8A-8CE6-4D0F-BB20-190182DE804D">
+        <di:waypoint x="412" y="292" />
+        <di:waypoint x="412" y="192" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_9DDF2E61-7B63-4BC2-B4EF-16E88E95BFFB" dmnElementRef="_942866CE-984B-4471-B333-11B9C6CF9044" sourceElement="_548A2E37-C647-4AED-8FD9-2F5BD08AE858" targetElement="_C3C1CB8A-8CE6-4D0F-BB20-190182DE804D">
+        <di:waypoint x="852" y="292" />
+        <di:waypoint x="412" y="192" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_4CEC011D-4E50-4758-AAA2-B07BE5173413" dmnElementRef="_DFD4F943-7A52-4FC0-9E42-B9CBBF14B053" sourceElement="_8C004E09-80F3-49EE-A38A-AFB5C61EDE79" targetElement="_45ECEA43-C4F3-44CC-AA88-697E8A3103EF">
+        <di:waypoint x="192" y="472" />
+        <di:waypoint x="632" y="372" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_514AF415-27CB-4D00-B0D2-D50B18A909B1" dmnElementRef="_E7472F2F-C4A7-4B75-A036-6AA90E738362" sourceElement="_8C004E09-80F3-49EE-A38A-AFB5C61EDE79" targetElement="_7B5BA905-E484-4F8B-9421-9AD2BBD672F7">
+        <di:waypoint x="192" y="472" />
+        <di:waypoint x="192" y="372" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_7F84DC09-997D-430F-82E6-C2AE9C4C0936" dmnElementRef="_B2ECAF7B-6A1B-4E1B-B62F-1662B4DE7E6F" sourceElement="_8C004E09-80F3-49EE-A38A-AFB5C61EDE79" targetElement="_E614C7E0-CA2B-42FF-8235-058F07AC147F">
+        <di:waypoint x="192" y="472" />
+        <di:waypoint x="412" y="372" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="_3876E8BF-ADF3-4DA8-B710-B949A50A5C51" dmnElementRef="_9CF8B8F6-7C4B-45FD-A665-DEF13EE8B174" sourceElement="_9E466DA9-8EB9-4732-B471-EF4E7A4328AB" targetElement="_548A2E37-C647-4AED-8FD9-2F5BD08AE858">
+        <di:waypoint x="852" y="472" />
+        <di:waypoint x="852" y="372" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
